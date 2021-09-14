@@ -28,47 +28,17 @@ function displayWeather(event){
         currentWeather(city);
     }
 }
-
-function currentWeather(city){
     
-    var queryURL= "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey;
-    $.ajax({
-        url: url,
-        method: "GET",
-      }).then(function (response) {
-
-        console.log(response);
-
-        var tempF = (response.main.temp - 273.15) * 1.80 + 32;
-        $(currentTemperature).html((tempF).toFixed(2)+"&#8457");
-        
-        $(currentHumidty).html(response.main.humidity+"%");
-        
-       
-
-        UVIndex(response.coord.lon,response.coord.lat);
-        forecast(response.id);
-        if(response.cod==200){
-            Citylist=JSON.parse(localStorage.getItem("cityname"));
-            console.log(Citylist);
-            if (Citylist==null){
-                Citylist=[];
-                Citylist.push(city.toUpperCase()
-                );
-                localStorage.setItem("cityname",JSON.stringify(Citylist));
-                addToList(city);
-            }
-            else {
-                if(find(city)>0){
-                    Citylist.push(city.toUpperCase());
-                    localStorage.setItem("cityname",JSON.stringify(Citylist));
-                    addToList(city);
-                }
-            }
-        }
-
-    })
-}
+  var queryURL="https://api.openweathermap.org/data/2.5/weather?q=" + city + "&APPID=" + APIKey
+    
+    function currentWeather(city) {
+        $.get(uri) .done(function(rawResponse) {
+            processWeatherData(rawResponse);
+        })
+        .fail(function() {
+            console.log("jQuery Request failed");
+        });
+    } 
   
 function UVIndex(ln,lt){
     

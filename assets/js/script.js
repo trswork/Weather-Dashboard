@@ -19,7 +19,7 @@ function find(l){
     return 1;
 }
 //Set up the API key
-var APIKey="1393df54fa0081545b6aea4e0b637cad";
+var APIKey="3619f23d64b5d2f7a415776391ee7afc";
 
 function displayWeather(event){
     event.preventDefault();
